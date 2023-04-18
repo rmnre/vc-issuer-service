@@ -1,0 +1,6 @@
+aiohttp==3.8.4
+aiohttp-jinja2~=1.5.1
+ConfigArgParse~=1.5.3
+Jinja2~=3.1.2
+PyYAML~=6.0
+qrcode~=7.4.2

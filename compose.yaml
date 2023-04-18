@@ -1,0 +1,42 @@
+services:
+
+  aca-py:
+    image: ghcr.io/hyperledger/aries-cloudagent-python:py3.9-0.8.0-rc0
+    ports:
+      - "8020:8020/tcp"
+      - "8021:8021/tcp"
+    configs:
+      - agent-config
+    env_file: config/agent.env
+    entrypoint:
+      - python3
+      - -OO
+      - -m
+      - aries_cloudagent
+    command: start --arg-file /agent-config
+    healthcheck:
+      test: curl -fs http://localhost:8021/status/live || exit 1
+      interval: 5m
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  webapp:
+    build:
+      context: .
+      network: host
+    ports:
+      - "4567:4567/tcp"
+    tty: true
+    depends_on:
+      - aca-py
+    configs:
+      - webapp-config
+    env_file: config/webapp.env
+    command: --arg-file /webapp-config
+
+configs:
+  agent-config:
+    file: config/agent-config.yaml
+  webapp-config:
+    file: config/webapp-config.yaml

@@ -1,0 +1,18 @@
+wallet-type: askar
+wallet-name: wallet
+wallet-allow-insecure-seed: true
+auto-provision: true
+no-ledger: true
+emit-new-didcomm-prefix: true
+emit-new-didcomm-mime-type: true
+endpoint: http://localhost:8020
+auto-accept-requests: true
+auto-respond-credential-request: true
+admin-insecure-mode: true
+admin:
+  - 0.0.0.0
+  - 8021
+inbound-transport:
+  - [ http, 0.0.0.0, 8020 ]
+outbound-transport: http
+log-level: info
